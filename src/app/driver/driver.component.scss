@@ -1,0 +1,17 @@
+.example-tab-icon {
+  margin-right: 1rem;
+}
+
+.example-card {
+  margin: 1rem;
+}
+
+.driver-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & button {
+    margin-left: 1rem;
+  }
+}

@@ -1,0 +1,12 @@
+<div class="customer-app-container">
+  <h2>Customer App</h2>
+  <form>
+    <mat-form-field>
+      <input [(ngModel)]="customer" matInput placeholder="Customer Id" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </form>
+
+  <button mat-raised-button color="primary" [disabled]="!(customer && customer.length)" (click)="createRequest()">Ride
+    Now</button>
+  <p [ngClass]="{'text-success': apiResponse.success, 'text-danger': !apiResponse.success}">{{apiResponse.message}}</p>
+</div>

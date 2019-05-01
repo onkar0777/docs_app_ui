@@ -1,0 +1,94 @@
+<div class="driver-app-header">
+  <h2>Driver App: Id {{driverId}}</h2>
+  <button mat-raised-button color="accent" (click)="getDriverRequests()">Refresh</button>
+</div>
+<ng-container *ngIf="dataAvailable; else elseTemplate">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">build</mat-icon>
+        Waiting
+      </ng-template>
+      <ng-container *ngIf="allRequests.waiting_requests && allRequests.waiting_requests.length; else noWaitingReq">
+        <mat-card class="example-card" *ngFor="let req of allRequests.waiting_requests">
+          <mat-card-content>
+            <p>
+              Req: {{req._id}}
+              Cust: {{req.customer}}
+            </p>
+            <p>
+              {{req.create_time}} ago
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button (click)="selectRequest(req)" color="primary">Select</button>
+          </mat-card-actions>
+        </mat-card>
+      </ng-container>
+      <ng-template #noWaitingReq>
+        <p>No Waiting Requests</p>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">done</mat-icon>
+        Ongoing
+      </ng-template>
+      <ng-container *ngIf="allRequests.ongoing_requests && allRequests.ongoing_requests.length; else noOngoingReq">
+        <mat-card class="example-card" *ngFor="let req of allRequests.ongoing_requests">
+          <mat-card-content>
+            <p>
+              Req Id : {{req._id}}
+              Cust Id: {{req.customer}}
+            </p>
+            <p>
+              Requested: {{req.create_time}} ago
+            </p>
+            <p>
+              Accepted: {{req.accept_time}} ago
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+      <ng-template #noOngoingReq>
+        <p>No Ongoing Requests</p>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">done_all</mat-icon>
+        Completed
+      </ng-template>
+      <ng-container *ngIf="allRequests.complete_requests && allRequests.complete_requests.length; else noCompReq">
+        <mat-card class="example-card" *ngFor="let req of allRequests.complete_requests">
+          <mat-card-content>
+            <p>
+              Req: {{req._id}}
+              Cust: {{req.customer}}
+            </p>
+            <p>
+              Requested: {{req.create_time}} ago
+            </p>
+            <p>Accepted: {{req.accept_time}} ago</p>
+            <p>
+              Completed: {{req.complete_time}} ago
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+      <ng-template #noCompReq>
+        <p>No Complete Requests</p>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</ng-container>
+<ng-template #elseTemplate>
+  <ng-container *ngIf="driverId <= 5; else elseTemplate">
+    <p>Loading Data...</p>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <p>Driver is not yet onboarded. Currently only 5 drivers allowed!</p>
+  </ng-template>
+</ng-template>
