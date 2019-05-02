@@ -69,7 +69,6 @@ export class DriverComponent implements OnInit {
         res.data.create_time = this.getFormattedTimeLapsed(moment.duration(moment().diff(moment(res.data.created_at))));
         res.data.accept_time = this.getFormattedTimeLapsed(moment.duration(moment().diff(moment(res.data.accepted_at))));
         this.allRequests.ongoing_requests.unshift(res.data);
-        // do some stuff
       } else {
         this.snackMsg.open(res.message, null, { duration: 1000 });
       }

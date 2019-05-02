@@ -17,10 +17,9 @@ export class CustomerComponent implements OnInit {
   }
 
   createRequest() {
-    console.log(this.customer);
     this.reqService.addRequest(this.customer).subscribe(x => {
       this.apiResponse = x;
-      console.log(x);
+      this.customer = null;
     });
   }
 }
